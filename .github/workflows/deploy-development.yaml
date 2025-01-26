@@ -1,16 +1,14 @@
-name: Deploy to Multiple Environments
+name: Deploy to Development Environment
 
 on:
   push:
     branches:
-      - develop       # For deployment-env
-      - release       # For staging-env
-      - main          # For production-env
+      - develop
 
-permissions: # Explicitly set permissions for the workflow
-  id-token: write  # Required for the deploy-pages action
-  contents: write  # Required to write repository contents
-  pages: write     # Required to deploy to GitHub Pages
+permissions:
+  id-token: write
+  contents: write
+  pages: write
 
 jobs:
   build:
@@ -18,7 +16,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repository
+      - name: Checkout Repository
         uses: actions/checkout@v4
 
       - name: Set up Node.js
@@ -35,16 +33,13 @@ jobs:
       - name: Upload Artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: dist  # Upload the build output directory
+          path: dist
 
   deploy:
     name: Deploy to GitHub Pages
-    needs: build  # Wait for the build job to finish
+    needs: build
     runs-on: ubuntu-latest
 
     steps:
       - name: Deploy to GitHub Pages
         uses: actions/deploy-pages@v4
-
-    environment:
-      name: ${{ github.ref_name == 'develop' && 'deployment-env' || github.ref_name == 'release' && 'staging-env' || github.ref_name == 'main' && 'production-env' }}
