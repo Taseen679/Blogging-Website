@@ -1,14 +1,17 @@
-name: PR Validation
+name: Pull Request Validation
 
 on:
   pull_request:
-    branches: [develop] # Trigger workflow for PRs targeting the develop branch
+    branches:
+      - develop
 
 jobs:
   lint:
+    name: Lint HTML and CSS
     runs-on: ubuntu-latest
+
     steps:
-      - name: Checkout repository
+      - name: Checkout Repository
         uses: actions/checkout@v4
 
       - name: Set up Node.js
@@ -19,16 +22,18 @@ jobs:
       - name: Install Dependencies
         run: npm install --save-dev htmlhint stylelint stylelint-config-standard
 
-      - name: Run HTML Lint
+      - name: Lint HTML Files
         run: npx htmlhint "**/*.html"
 
-      - name: Run CSS Lint
+      - name: Lint CSS Files
         run: npx stylelint "**/*.css"
 
   build:
+    name: Build Static Website
     runs-on: ubuntu-latest
+
     steps:
-      - name: Checkout repository
+      - name: Checkout Repository
         uses: actions/checkout@v4
 
       - name: Set up Node.js
