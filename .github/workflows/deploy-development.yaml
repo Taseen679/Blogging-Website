@@ -7,6 +7,10 @@ on:
       - release       # For staging-env
       - main          # For production-env
 
+permissions: # Explicitly set permissions for the workflow
+  id-token: write  # Required for deploy-pages action
+  contents: write  # Required to deploy to GitHub Pages
+
 jobs:
   build:
     name: Build Static Website
