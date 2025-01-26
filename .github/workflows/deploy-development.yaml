@@ -1,0 +1,39 @@
+name: Deploy to Development
+
+on:
+  push:
+    branches: [develop]  # Trigger on pushes to the develop branch
+
+jobs:
+  build:
+    name: Build Static Website
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '16'
+
+      - name: Install Dependencies
+        run: npm install parcel --save-dev
+
+      - name: Build Website
+        run: npx parcel build src/index.html
+
+      - name: Upload Artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: dist  # Upload the build output directory
+
+  deploy:
+    name: Deploy to GitHub Pages
+    needs: build  # Wait for the build job to finish
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Deploy to GitHub Pages
+        uses: actions/deploy-pages@v4
