@@ -1,0 +1,43 @@
+name: PR Validation
+
+on:
+  pull_request:
+    branches: [develop] # Trigger workflow for PRs targeting the develop branch
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '16'
+
+      - name: Install Dependencies
+        run: npm install --save-dev htmlhint stylelint stylelint-config-standard
+
+      - name: Run HTML Lint
+        run: npx htmlhint "**/*.html"
+
+      - name: Run CSS Lint
+        run: npx stylelint "**/*.css"
+
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '16'
+
+      - name: Install Dependencies
+        run: npm install parcel --save-dev
+
+      - name: Build Website
+        run: npx parcel build src/index.html
