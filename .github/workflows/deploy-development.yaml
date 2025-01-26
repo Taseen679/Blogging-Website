@@ -1,8 +1,11 @@
-name: Deploy to Development
+name: Deploy to Multiple Environments
 
 on:
   push:
-    branches: [develop]  # Trigger on pushes to the develop branch
+    branches:
+      - develop       # For deployment-env
+      - release       # For staging-env
+      - main          # For production-env
 
 jobs:
   build:
@@ -37,3 +40,9 @@ jobs:
     steps:
       - name: Deploy to GitHub Pages
         uses: actions/deploy-pages@v4
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+
+    environment:
+      name: ${{ github.ref_name == 'develop' && 'deployment-env' || github.ref_name == 'release' && 'staging-env' || github.ref_name == 'main' && 'production-env' }}
+      url: ${{ steps.deploy.outputs.page_url }}
