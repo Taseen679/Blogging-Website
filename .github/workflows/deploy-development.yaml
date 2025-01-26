@@ -8,8 +8,9 @@ on:
       - main          # For production-env
 
 permissions: # Explicitly set permissions for the workflow
-  id-token: write  # Required for deploy-pages action
-  contents: write  # Required to deploy to GitHub Pages
+  id-token: write  # Required for the deploy-pages action
+  contents: write  # Required to write repository contents
+  pages: write     # Required to deploy to GitHub Pages
 
 jobs:
   build:
