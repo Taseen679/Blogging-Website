@@ -19,6 +19,10 @@ jobs:
       - name: Install Dependencies
         run: npm install --save-dev htmlhint stylelint stylelint-config-standard
 
+      - name: Enforce Relative Paths
+        run: |
+          find src/ -name "*.html" -exec sed -i 's|href="/|href="./|g' {} +
+
       - name: Run HTML Lint
         run: npx htmlhint "**/*.html"
 
@@ -43,4 +47,4 @@ jobs:
         run: npx parcel build src/index.html
 
       - name: Debug Build Output
-        run: ls -R dist # Validate build output matches the expected changes
+        run: ls -R dist
