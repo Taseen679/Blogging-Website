@@ -4,16 +4,21 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Blogging Website</title>
-    <link rel="stylesheet" href="../styles/main.css">
+    <script>
+        // JavaScript to handle navigation
+        function navigate(page) {
+            window.location.href = page; // Dynamically navigate to the target page
+        }
+    </script>
 </head>
 <body>
     <header>
         <h1>Welcome to the Blogging Website</h1>
         <nav>
            <ul>
-                <li><a href="./home1.html">Home</a></li>
-                <li><a href="./blog.html">Blog</a></li>
-                <li><a href="./contact.html">Contact Us</a></li>
+                <li><a id="home-link" onclick="navigate('./home1.html')">Home</a></li>
+                <li><a id="blog-link" onclick="navigate('./blog.html')">Blog</a></li>
+                <li><a id="contact-link" onclick="navigate('./contact.html')">Contact Us</a></li>
             </ul>
         </nav>
     </header>
