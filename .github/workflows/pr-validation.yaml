@@ -41,3 +41,22 @@ jobs:
 
       - name: Build Website
         run: npx parcel build src/index.html
+
+{
+    "tagname-lowercase": true,
+    "attr-lowercase": true,
+    "alt-require": true,
+    "id-unique": true,
+    "tag-pair": true
+  }  
+
+{
+    "extends": "stylelint-config-standard",
+    "rules": {
+      "declaration-block-no-duplicate-properties": true,
+      "no-duplicate-selectors": true,
+      "value-keyword-case": "lower",
+      "selector-type-case": "lower",
+      "block-no-empty": true
+    }
+  }  
