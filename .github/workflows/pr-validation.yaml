@@ -2,13 +2,13 @@ name: PR Validation
 
 on:
   pull_request:
-    branches: [develop] # Trigger workflow for PRs targeting the develop branch
+    branches: [develop]
 
 jobs:
   lint:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout repository
+      - name: Checkout Repository
         uses: actions/checkout@v4
 
       - name: Set up Node.js
@@ -28,7 +28,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout repository
+      - name: Checkout Repository
         uses: actions/checkout@v4
 
       - name: Set up Node.js
@@ -41,3 +41,6 @@ jobs:
 
       - name: Build Website
         run: npx parcel build src/index.html
+
+      - name: Debug Build Output
+        run: ls -R dist # Validate build output matches the expected changes
