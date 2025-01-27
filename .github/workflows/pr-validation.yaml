@@ -16,10 +16,10 @@ jobs:
         with:
           node-version: '16'
 
-      - name: Install Dependencies
+      - name: Install Linting Tools
         run: npm install --save-dev htmlhint stylelint stylelint-config-standard
 
-      - name: Enforce Relative Paths
+      - name: Enforce Relative Paths in HTML
         run: |
           find src/ -name "*.html" -exec sed -i 's|href="/|href="./|g' {} +
 
@@ -40,11 +40,14 @@ jobs:
         with:
           node-version: '16'
 
-      - name: Install Dependencies
+      - name: Install Build Tools
         run: npm install parcel --save-dev
 
       - name: Build Website
-        run: npx parcel build src/index.html
+        run: npx parcel build src/index.html --public-url ./
 
       - name: Debug Build Output
         run: ls -R dist
+
+      - name: Inspect Built HTML
+        run: cat dist/index.html
