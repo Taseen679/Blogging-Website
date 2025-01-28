@@ -28,7 +28,7 @@ jobs:
         run: npm install parcel --save-dev
 
       - name: Build Website
-        run: npx parcel build src/index.html
+        run: npx parcel build src/index.html --public-url ./
 
       - name: Debug Build Output
         run: ls -R dist # Ensures the latest content is built
